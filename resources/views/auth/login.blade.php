@@ -29,6 +29,9 @@
             background-image: url('{{ asset('/assets/img/img-shunt-yard.png') }}');
             background-size: cover;
         }
+        .form-control{
+            width: 80% !important;
+        }
     </style>
 </head>
 
@@ -59,10 +62,14 @@
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        <div >
                         @if ($errors->has('email'))
                             <span class="error">{{ $errors->first('email') }}</span>
                         @endif
+                        </div>
+                       
                     </div>
+
                     <div class="input-group mb-3">
                         <input type="password" name="password" class="form-control" type="password"
                             placeholder="Password">
