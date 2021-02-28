@@ -6,9 +6,17 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
+use Helper;
 
 class DashboardController extends Controller
 {
+    public function index(){
+        $total_employee = $this->getTotalEmployee();
+        $today_employee = $this->getTodayEmployee();
+        $data = array('total_employee' => $total_employee,'today_employee' => $today_employee);
+        return view('admin.dashboard')->with($data);
+
+    }
     public function addNewUser(){
 
         return view('admin.register');
@@ -18,7 +26,7 @@ class DashboardController extends Controller
     public function registered()
     {
 
-    	$users = User::all();
+    	$users = User::all()->where('usertype','employee');
 
     	return view('admin.user')->with('users',$users);
 
@@ -36,9 +44,8 @@ class DashboardController extends Controller
 
         $validator = Validator::make($request->all(), [ 
                     'fname' => 'required|string|min:4|max:255',                    
-                    'lname' => 'required|string|min:4|max:255',                    
-                    'phone' => 'required|string|max:10|min:10',
-                    'email' => 'required|string|email|max:255|unique:users',
+                    'lname' => 'required|string|min:4|max:255',  
+                     'phone' => 'required|min:10|numeric',
                 ]);
 
         if ($validator->fails()) {
@@ -54,10 +61,10 @@ class DashboardController extends Controller
             }
 
     	$users = User::find($id);
-        $data = $request->only('usertype','fname','lname','email','phone');        
+        $data = $request->only('usertype','fname','lname','email','phone','address');        
     	$users->update($data);
 
-    	return redirect('/role-register')->with('status','data is updated'); 
+    	return redirect('/role-register')->with('status','Employee data updated!'); 
     }
     //delete function
     public function registerdelete($id)
@@ -77,15 +84,12 @@ class DashboardController extends Controller
 
                 [ 
                     'fname' => 'required|string|min:4|max:255',                    
-                    'phone' => 'required|string|max:10|min:10',
+                    'phone' => 'required|min:10|numeric',
                     'email' => 'required|string|email|max:255|unique:users',
                     'password' => 'required|string|min:8',
                     'password_confirmation' => 'required|same:password', 
                     'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
                 ]);
-
-
-
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -106,7 +110,7 @@ class DashboardController extends Controller
             $user->lname = $request->lname;
             $user->email = $request->email;
             $user->phone = $request->phone;
-            $user->phone = $imageName;
+            $user->profile = $imageName;
             $user->usertype = 'employee';
             $user->password = bcrypt($request->password);
             $user->save();
@@ -118,4 +122,13 @@ class DashboardController extends Controller
         }
 
     }
+
+    function getTotalEmployee(){
+      return  User::where('usertype','employee')->get()->count();
+    }
+
+    function getTodayEmployee(){
+      return  User::whereDate('created_at','=',date('Y-m-d'))->get()->count();
+    }
+
 }

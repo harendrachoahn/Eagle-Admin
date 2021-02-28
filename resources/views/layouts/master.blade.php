@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/favicon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../public/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../public/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     	@yield('title')
@@ -14,10 +14,10 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Files -->
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../assets/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+  <link href="{{ URL::to('/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="{{ URL::to('/assets/css/now-ui-dashboard.css?v=1.3.0') }}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="{{ URL::to('/assets/demo/demo.css') }}" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -44,29 +44,23 @@
         <ul class="nav">
           <!--how to set active menu link ternary operator class="{{ 'role-register' == request()->path() ? 'active' : ''}}" -->
           <li class="{{ 'dashboard' == request()->path() ? 'active' : ''}}">
-            <a href="/dashboard">
+            <a href="{{ URL::to('dashboard') }}">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
-          </li><!-- 
-          <li>
-            <a href="./map.html">
-              <i class="now-ui-icons location_map-big"></i>
-              <p>Maps</p>
-            </a>
-          </li> 
-          <li>
-            <a href="./notifications.html">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Notifications</p>
-            </a>
-          </li>  -->
+          </li>
           <li class="{{ 'role-register' == request()->path() ? 'active' : ''}}">
-            <a href="/role-register"> <!--edit here for user profile -->
+            <a href="{{ URL::to('role-register') }}"> <!--edit here for user profile -->
               <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
+          <li class="{{ 'employee-time' == request()->path() ? 'active' : ''}}">
+            <a href="{{ URL::to('employee-time') }}">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Time Table</p>
+            </a>
+          </li> 
         </ul>
       </div>
     </div>
@@ -116,24 +110,22 @@
               
               <!-- here we paste or write logout code -->
 
-<li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-         {{ Auth::user()->name }} <span class="caret"></span>
-         </a>
+              <li class="nav-item dropdown">
+                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>{{ Auth::user()->name }} <span class="caret"></span></a>
 
- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-               <a class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-               </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-    </form>
-  </div>
-</li>
+               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                     </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                  </form>
+                </div>
+              </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="#">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
@@ -157,23 +149,6 @@
       <footer class="footer">
         <div class="container-fluid">
           <nav>
-            <ul>
-              <li>
-                <a href="https://digitalcrm.com/">
-                  Digital-CRM
-                </a>
-              </li>
-              <li>
-                <a href="https://digitalcrm.com/about-us/">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="https://digitalcrm.com/category/crm-blog/">
-                  Blog
-                </a>
-              </li>
-            </ul>
           </nav>
           <div class="copyright" id="copyright">
             &copy;
@@ -188,20 +163,20 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../public/assets/js/core/jquery.min.js"></script>
+  <script src="../public/assets/js/core/popper.min.js"></script>
+  <script src="../public/assets/js/core/bootstrap.min.js"></script>
+  <script src="../public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="../public/assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="../public/assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/now-ui-dashboard.min.js?v=1.3.0" type="text/javascript"></script>
+  <script src="../public/assets/js/now-ui-dashboard.min.js?v=1.3.0" type="text/javascript"></script>
   <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="../public/assets/demo/demo.js"></script>
 
   @yield('scripts')
 </body>

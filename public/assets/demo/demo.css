@@ -62,9 +62,47 @@
   margin: 0 auto;
 }
 /*My custom CSS*/
-.panel-header {
-    background: #000;
-  }
+/*.panel-header {
+    background: #ff4800;
+  }*/
+
 .sidebar{
   background: #fff;
+}
+.sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper {
+    background: #ff4800;
+}
+.sidebar .nav li.active > a, .off-canvas-sidebar .nav li.active > a {
+    background-color: #000;
+}
+.sidebar .logo, .off-canvas-sidebar .logo {
+    padding: 0.2rem 4.7rem;
+    background: #fff;
+}
+.panel-sky{
+     background-color: #35A7D6;
+     color: #fff;
+     padding: 10px;
+  }
+.panel-green{
+     background: #00b393; 
+    color: #fff;
+     padding: 10px;
+}
+
+.panel-icon{
+  font-size: 50px;
+  float: left;
+  min-height: 80px;
+  line-height: 35px;
+
+}
+.widget-details {
+    text-align: right;
+    right: 15px;
+    padding-right: 15px;
+   /* position: absolute;*/
+}
+.widget-details h3{
+  margin-bottom: 5px;
 }

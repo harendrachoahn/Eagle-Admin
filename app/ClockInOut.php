@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class ClockInOut extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -17,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'phone','email', 'password','address','profile',
+        'date', 'start','end', 'user_id', 'type',
     ];
 
     /**
@@ -25,18 +26,14 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = [];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -58,8 +55,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function clock_in_outs()
+    public function users()
     {
-        return $this->hasMany('App\ClockInOut');
+        return $this->belongsTo('App\User');
     }
 }

@@ -20,7 +20,7 @@ class JwtAuthController extends Controller
     {
 
          $validator = Validator::make($request->all(), 
-                      [ 
+                      [
                       'name' => 'required',
                       'email' => 'required|email',
                       'password' => 'required',  
@@ -92,6 +92,6 @@ class JwtAuthController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
 
-        return response()->json(['user' => $user]);
+        return response()->json(['data' => $user]);
     }
 }

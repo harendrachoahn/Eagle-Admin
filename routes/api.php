@@ -18,10 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('login', 'JwtAuthController@login');
-Route::post('register', 'JwtAuthController@register');
+//Route::post('register', 'JwtAuthController@register');
 
 Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::get('logout', 'JwtAuthController@logout');
     Route::get('user-info', 'JwtAuthController@getUser');
+    Route::post('clock-in-out', 'ClockInOutController@clockInOut');
+    Route::get('history', 'ClockInOutController@clockInOutHistory');
+
+
+
 });
